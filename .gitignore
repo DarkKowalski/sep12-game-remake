@@ -3,3 +3,11 @@
 /dev-dist
 *.local
 .DS_Store
+
+# Editor scratch files. Vim writes .*.swp next to the file being edited, which
+# `git add -A` will happily sweep into a commit.
+*.sw[a-p]
+*~
+.*.swo
+*.orig
+*.rej
