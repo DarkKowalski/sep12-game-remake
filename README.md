@@ -1,5 +1,10 @@
 # September 12th — A Toy World
 
+[![Play](https://img.shields.io/badge/play-darkkowalski.github.io-a8321f?logo=githubpages&logoColor=white)](https://darkkowalski.github.io/sep12-game-remake/)
+[![CI](https://github.com/DarkKowalski/sep12-game-remake/actions/workflows/ci.yml/badge.svg)](https://github.com/DarkKowalski/sep12-game-remake/actions/workflows/ci.yml)
+
+**Play it: <https://darkkowalski.github.io/sep12-game-remake/>**
+
 A remake of *September 12th: A Toy World*, the 2003 newsgame by **Gonzalo Frasca**, published by **Newsgaming.com**
 
 > This is not a game. You can't win and you can't lose.
