@@ -191,11 +191,19 @@ body.show-cursor #scene {
 
 /* ---------------------------------------------------------- source link */
 
+.source-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px clamp(16px, 6vw, 28px);
+  margin: 18px 0 0;
+}
+
 .source-link {
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  margin-top: 18px;
   color: var(--ink-soft);
   font-size: 0.76rem;
   font-weight: 700;

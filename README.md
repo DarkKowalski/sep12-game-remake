@@ -5,7 +5,8 @@
 
 **Play it: <https://darkkowalski.github.io/sep12-game-remake/>**
 
-A remake of *September 12th: A Toy World*, the 2003 newsgame by **Gonzalo Frasca**, published by **Newsgaming.com**
+A remake of [*September 12th: A Toy World*](http://newsgaming.com/games/index12.htm), the 2003
+newsgame by **Gonzalo Frasca**, published by **Newsgaming.com**
 
 > This is not a game. You can't win and you can't lose.
 > This is a simulation. It has no ending. It has already begun.
@@ -74,3 +75,6 @@ More welcome. Copy `src/i18n/locales/en.ts`, translate the values, add it to `LO
 ## Credits
 
 Original game design and text: **Gonzalo Frasca**, Newsgaming.com, 2003.
+
+The original is still online at <http://newsgaming.com/games/index12.htm> — http only, and
+it needs Flash, so most browsers can no longer run it.
