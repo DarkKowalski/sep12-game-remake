@@ -34,6 +34,9 @@ const trTR: Strings = {
       Çoktan başladı.<br /><br />
       Kurallar ölümcül derecede basit.<br />
       <em>Ateş edebilirsin. Ya da etmezsin.</em>`,
+    legendIntro: 'Kasabada iki tür figür dolaşır.',
+    legendCivilian: 'Sivil',
+    legendTerrorist: 'Terörist',
     controlsTouch: 'Nişan almak için dokunup sürükleyin. Ateş etmek için parmağınızı kaldırın.',
     controlsPointer: 'Nişan almak için fareyi hareket ettirin. Ateş etmek için tıklayın.',
     accept: 'Anladım',

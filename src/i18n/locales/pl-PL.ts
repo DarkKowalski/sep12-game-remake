@@ -37,6 +37,9 @@ const plPL: Strings = {
       Już się zaczęła.<br /><br />
       Zasady są śmiertelnie proste.<br />
       <em>Możesz strzelać. Albo nie.</em>`,
+    legendIntro: 'Po miasteczku chodzą dwa rodzaje postaci.',
+    legendCivilian: 'Cywil',
+    legendTerrorist: 'Terrorysta',
     controlsTouch: 'Dotknij i przeciągnij, aby wycelować. Puść palec, aby strzelić.',
     controlsPointer: 'Poruszaj myszą, aby wycelować. Kliknij, aby strzelić.',
     accept: 'Rozumiem',

@@ -38,6 +38,9 @@ const en: Strings = {
       It has already begun.<br /><br />
       The rules are deadly simple.<br />
       <em>You can shoot. Or not.</em>`,
+    legendIntro: 'Two kinds of figure walk the town.',
+    legendCivilian: 'Civilian',
+    legendTerrorist: 'Terrorist',
     controlsTouch: 'Touch and drag to aim. Lift your finger to fire.',
     controlsPointer: 'Move the mouse to aim. Click to fire.',
     accept: 'I understand',

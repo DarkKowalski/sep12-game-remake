@@ -36,6 +36,9 @@ const koKR: Strings = {
       이미 시작되었다.<br /><br />
       규칙은 지독하게 단순하다.<br />
       <em>쏘거나, 쏘지 않거나.</em>`,
+    legendIntro: '이 마을에는 두 종류의 사람이 걸어다닌다.',
+    legendCivilian: '민간인',
+    legendTerrorist: '테러리스트',
     controlsTouch: '화면을 누른 채 끌어서 조준하고, 손을 떼면 발사합니다.',
     controlsPointer: '마우스를 움직여 조준하고, 클릭하면 발사합니다.',
     accept: '이해했습니다',

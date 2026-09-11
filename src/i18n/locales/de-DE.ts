@@ -37,6 +37,9 @@ const deDE: Strings = {
       Sie hat längst begonnen.<br /><br />
       Die Regeln sind tödlich einfach.<br />
       <em>Du kannst schießen. Oder nicht.</em>`,
+    legendIntro: 'Zwei Arten von Figuren laufen durch die Stadt.',
+    legendCivilian: 'Zivilist',
+    legendTerrorist: 'Terrorist',
     controlsTouch: 'Zum Zielen berühren und ziehen. Zum Feuern loslassen.',
     controlsPointer: 'Zum Zielen die Maus bewegen. Zum Feuern klicken.',
     accept: 'Ich habe verstanden',

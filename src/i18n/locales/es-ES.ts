@@ -36,6 +36,9 @@ const esES: Strings = {
       Ya ha empezado.<br /><br />
       Las reglas son mortalmente simples.<br />
       <em>Puedes disparar. O no.</em>`,
+    legendIntro: 'Por el pueblo caminan dos tipos de figuras.',
+    legendCivilian: 'Civil',
+    legendTerrorist: 'Terrorista',
     controlsTouch: 'Toca y arrastra para apuntar. Levanta el dedo para disparar.',
     controlsPointer: 'Mueve el ratón para apuntar. Haz clic para disparar.',
     accept: 'Lo he entendido',

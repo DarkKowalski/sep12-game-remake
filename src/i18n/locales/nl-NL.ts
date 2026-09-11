@@ -33,6 +33,9 @@ const nlNL: Strings = {
       Ze is al begonnen.<br /><br />
       De regels zijn dodelijk eenvoudig.<br />
       <em>Je kunt schieten. Of niet.</em>`,
+    legendIntro: 'Twee soorten figuren lopen door de stad.',
+    legendCivilian: 'Burger',
+    legendTerrorist: 'Terrorist',
     controlsTouch: 'Raak aan en sleep om te richten. Laat los om te schieten.',
     controlsPointer: 'Beweeg de muis om te richten. Klik om te schieten.',
     accept: 'Ik begrijp het',

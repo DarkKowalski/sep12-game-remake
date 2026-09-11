@@ -34,6 +34,9 @@ const itIT: Strings = {
       È già cominciata.<br /><br />
       Le regole sono di una semplicità mortale.<br />
       <em>Puoi sparare. Oppure no.</em>`,
+    legendIntro: 'Per la città camminano due tipi di figure.',
+    legendCivilian: 'Civile',
+    legendTerrorist: 'Terrorista',
     controlsTouch: 'Tocca e trascina per mirare. Solleva il dito per sparare.',
     controlsPointer: 'Muovi il mouse per mirare. Clicca per sparare.',
     accept: 'Ho capito',

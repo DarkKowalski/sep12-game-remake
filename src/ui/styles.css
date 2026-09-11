@@ -39,6 +39,8 @@ body {
     'Microsoft YaHei', 'Microsoft JhengHei', 'Yu Gothic', 'Malgun Gothic',
     'SF Arabic', 'Vazirmatn', 'Noto Sans Arabic', 'Geeza Pro',
     'Noto Sans Hebrew', 'Arial Hebrew', 'Tahoma', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
 }
 
 /*
@@ -60,8 +62,6 @@ body {
   font-family:
     'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', 'Urdu Typesetting', 'Awami Nastaliq',
     'SF Arabic', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Geeza Pro', Tahoma, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -187,6 +187,92 @@ body.show-cursor #scene {
 .note strong {
   color: var(--ink);
   font-weight: 700;
+}
+
+/* ---------------------------------------------------------- source link */
+
+.source-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 18px;
+  color: var(--ink-soft);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  opacity: 0.75;
+  transition:
+    color 0.18s ease,
+    opacity 0.18s ease;
+}
+
+.source-link:hover {
+  color: var(--ink);
+  opacity: 1;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.source-link__mark {
+  width: 15px;
+  height: 15px;
+  flex: none;
+}
+
+/* --------------------------------------------------------------- legend */
+
+.legend {
+  margin: 26px auto 0;
+  max-width: 34ch;
+}
+
+.legend__intro {
+  margin: 0 0 14px;
+  font-size: clamp(0.78rem, 3vw, 0.88rem);
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+
+.legend__stage {
+  width: min(232px, 78%);
+  margin: 0 auto;
+}
+
+.legend__canvas {
+  display: block;
+  width: 100%;
+  /* Matches the ASPECT constant in figureShowcase.ts. */
+  aspect-ratio: 2.2;
+}
+
+/* Two equal columns, aligning with the two halves the canvas draws into. */
+.legend__labels {
+  width: min(232px, 78%);
+  margin: 4px auto 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.legend__label {
+  text-align: center;
+  font-size: clamp(0.68rem, 2.7vw, 0.76rem);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.legend__label--armed {
+  color: var(--accent);
+}
+
+/* Uppercasing and wide tracking are for Latin labels; neither helps a script
+   that has no case, and the tracking only pushes the glyphs apart. */
+:is(:lang(zh), :lang(ja), :lang(ko), :lang(ar), :lang(fa), :lang(he), :lang(ur))
+  .legend__label {
+  text-transform: none;
+  letter-spacing: 0.02em;
 }
 
 /* -------------------------------------------------------------- buttons */

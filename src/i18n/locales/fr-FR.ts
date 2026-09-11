@@ -36,6 +36,9 @@ const frFR: Strings = {
       Elle a déjà commencé.<br /><br />
       Les règles sont d’une simplicité mortelle.<br />
       <em>Vous pouvez tirer. Ou non.</em>`,
+    legendIntro: 'Deux sortes de silhouettes parcourent la ville.',
+    legendCivilian: 'Civil',
+    legendTerrorist: 'Terroriste',
     controlsTouch: 'Touchez et faites glisser pour viser. Relâchez pour tirer.',
     controlsPointer: 'Déplacez la souris pour viser. Cliquez pour tirer.',
     accept: 'J’ai compris',

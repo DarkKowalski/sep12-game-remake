@@ -36,6 +36,9 @@ const jaJP: Strings = {
       そしてすでに始まっている。<br /><br />
       ルールは恐ろしいほど単純だ。<br />
       <em>撃つか、撃たないか。</em>`,
+    legendIntro: 'この町を歩いているのは二種類の人間だ。',
+    legendCivilian: '民間人',
+    legendTerrorist: 'テロリスト',
     controlsTouch: '画面に触れてドラッグで照準、指を離すと発射します。',
     controlsPointer: 'マウスを動かして照準、クリックで発射します。',
     accept: '理解した',

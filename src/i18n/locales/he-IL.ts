@@ -46,6 +46,9 @@ const heIL: Strings = {
       והיא כבר התחילה.<br /><br />
       הכללים פשוטים עד מוות.<br />
       <em>אפשר לירות. או לא.</em>`,
+    legendIntro: 'שני סוגי דמויות מהלכים בעיירה.',
+    legendCivilian: 'אזרח',
+    legendTerrorist: 'טרוריסט',
     controlsTouch: 'געו וגררו כדי לכוון. הרימו את האצבע כדי לירות.',
     controlsPointer: 'הזיזו את העכבר כדי לכוון. לחצו כדי לירות.',
     accept: 'הבנתי',

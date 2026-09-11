@@ -49,6 +49,10 @@ export interface Strings {
     credit: string
     /** Multi-line; contains `<br />` and one `<em>`. */
     manifesto: string
+    /** One line introducing the two figures shown beneath it. */
+    legendIntro: string
+    legendCivilian: string
+    legendTerrorist: string
     controlsTouch: string
     controlsPointer: string
     accept: string

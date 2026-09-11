@@ -36,6 +36,9 @@ const zhHK: Strings = {
       它早已開始。<br /><br />
       規則簡單得要命。<br />
       <em>你可以開火。也可以不開。</em>`,
+    legendIntro: '鎮上走著兩種人。',
+    legendCivilian: '平民',
+    legendTerrorist: '恐怖分子',
     controlsTouch: '觸控並拖曳來瞄準，鬆開手指開火。',
     controlsPointer: '移動滑鼠瞄準，點擊開火。',
     accept: '我明白了',

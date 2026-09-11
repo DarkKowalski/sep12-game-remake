@@ -145,6 +145,7 @@ const pointer = new PointerInput(canvas, stage.camera, {
 
 const intro = new Intro(uiRoot, {
   touch: isTouchDevice,
+  reducedMotion: prefersReducedMotion,
   onBegin: () => {
     audio.unlock()
     pointer.enabled = true

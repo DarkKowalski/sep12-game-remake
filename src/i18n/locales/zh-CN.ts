@@ -39,6 +39,9 @@ const zhCN: Strings = {
       它早已开始。<br /><br />
       规则简单得要命。<br />
       <em>你可以开火。也可以不开。</em>`,
+    legendIntro: '镇上走着两种人。',
+    legendCivilian: '平民',
+    legendTerrorist: '恐怖分子',
     controlsTouch: '触摸并拖动来瞄准，松开手指开火。',
     controlsPointer: '移动鼠标瞄准，点击开火。',
     accept: '我明白了',

@@ -35,6 +35,9 @@ const ptBR: Strings = {
       Já começou.<br /><br />
       As regras são mortalmente simples.<br />
       <em>Você pode atirar. Ou não.</em>`,
+    legendIntro: 'Dois tipos de figura caminham pela cidade.',
+    legendCivilian: 'Civil',
+    legendTerrorist: 'Terrorista',
     controlsTouch: 'Toque e arraste para mirar. Solte o dedo para atirar.',
     controlsPointer: 'Mova o mouse para mirar. Clique para atirar.',
     accept: 'Entendi',

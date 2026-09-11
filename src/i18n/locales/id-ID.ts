@@ -40,6 +40,9 @@ const idID: Strings = {
       Dan sudah dimulai.<br /><br />
       Aturannya sederhana sampai mematikan.<br />
       <em>Kamu bisa menembak. Atau tidak.</em>`,
+    legendIntro: 'Ada dua jenis sosok yang berjalan di kota ini.',
+    legendCivilian: 'Warga sipil',
+    legendTerrorist: 'Teroris',
     controlsTouch: 'Sentuh dan seret untuk membidik. Angkat jari untuk menembak.',
     controlsPointer: 'Gerakkan mouse untuk membidik. Klik untuk menembak.',
     accept: 'Saya mengerti',
