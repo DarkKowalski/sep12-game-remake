@@ -1,0 +1,25 @@
+{
+  "name": "September 12th — A Toy World",
+  "short_name": "September 12th",
+  "description": "A simulation about the war on terror. You can shoot. Or not.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "fullscreen",
+  "orientation": "any",
+  "background_color": "#c6ab7d",
+  "theme_color": "#c6ab7d",
+  "icons": [
+    {
+      "src": "./favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-maskable.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}

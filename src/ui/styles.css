@@ -1,0 +1,670 @@
+:root {
+  --sand: #c6ab7d;
+  --sand-light: #e6d7b6;
+  --ink: #2b2520;
+  --ink-soft: #5d5044;
+  --accent: #a8321f;
+  --panel: rgba(243, 234, 214, 0.97);
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  overscroll-behavior: none;
+  background: var(--sand);
+  color: var(--ink);
+  /* Non-Latin faces are named explicitly after the Latin stack: a browser
+     running in an English locale has no reason to pick a Chinese, Korean or
+     Arabic font on its own, and would otherwise fall back to whatever happens
+     to cover the glyphs. Simplified, Traditional and Japanese are listed
+     separately because they draw shared characters differently. */
+  font-family:
+    ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Inter, Roboto, Helvetica, Arial,
+    'PingFang SC', 'PingFang HK', 'Hiragino Sans', 'Apple SD Gothic Neo',
+    'Noto Sans CJK SC', 'Noto Sans CJK TC', 'Noto Sans CJK JP', 'Noto Sans CJK KR',
+    'Microsoft YaHei', 'Microsoft JhengHei', 'Yu Gothic', 'Malgun Gothic',
+    'SF Arabic', 'Vazirmatn', 'Noto Sans Arabic', 'Geeza Pro',
+    'Noto Sans Hebrew', 'Arial Hebrew', 'Tahoma', sans-serif;
+}
+
+/*
+ * Urdu is set in Nastaliq, a cascading calligraphic style — not simply Arabic
+ * in another language. Its baseline steps downwards across a word, so lines
+ * collide at the line-height that suits Arabic, and glyphs are clipped at the
+ * one that suits Latin.
+ *
+ * No font is bundled. Nastaliq faces are ~1 MB and this game otherwise ships
+ * zero asset files and makes zero network requests after load; fetching one
+ * from a font CDN would break both properties for a single locale. Systems
+ * that have a Nastaliq face use it, and the rest fall back to Naskh further
+ * down the stack — correct and readable, just not calligraphic. If you would
+ * rather guarantee it, bundle Noto Nastaliq Urdu and accept the megabyte.
+ */
+:lang(ur) body,
+:lang(ur) .panel__card,
+:lang(ur) .overlay__inner {
+  font-family:
+    'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', 'Urdu Typesetting', 'Awami Nastaliq',
+    'SF Arabic', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Geeza Pro', Tahoma, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  /* dvh keeps the canvas honest while the mobile URL bar collapses. */
+  height: 100dvh;
+  width: 100vw;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+}
+
+#scene {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: none;
+  cursor: none;
+}
+
+/* Native cursor returns whenever the game isn't accepting aim input. */
+body.show-cursor #scene {
+  cursor: default;
+}
+
+#ui {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+
+#ui > * {
+  pointer-events: auto;
+}
+
+/* ----------------------------------------------------------- overlays */
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: calc(24px + var(--safe-top)) calc(24px + var(--safe-right))
+    calc(24px + var(--safe-bottom)) calc(24px + var(--safe-left));
+  /* Opaque from the first paint — never fade this in, or the town shows
+     through before the player has read the rules. */
+  background: linear-gradient(160deg, #ddc79d 0%, #c6ab7d 55%, #b2966b 100%);
+}
+
+.overlay.leaving {
+  animation: fade-out 0.35s ease both;
+}
+
+.overlay__inner {
+  width: min(560px, 100%);
+  max-height: 100%;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  text-align: center;
+  animation: fade-in 0.35s ease both;
+}
+
+.title {
+  margin: 0;
+  font-size: clamp(2.1rem, 9vw, 3.6rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.02;
+}
+
+/* Raised ordinal suffix ("th"). Locales without one simply leave it empty. */
+.title__ordinal {
+  font-size: 0.55em;
+  vertical-align: super;
+}
+
+.title__sub {
+  display: block;
+  margin-top: 0.35em;
+  font-size: clamp(0.82rem, 3.4vw, 1.05rem);
+  font-weight: 500;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.reticle {
+  width: clamp(74px, 22vw, 104px);
+  height: clamp(74px, 22vw, 104px);
+  margin: 0 auto 26px;
+  display: block;
+}
+
+.manifesto {
+  margin: 0 0 8px;
+  font-size: clamp(1.02rem, 4.4vw, 1.32rem);
+  line-height: 1.62;
+  font-weight: 500;
+  text-wrap: balance;
+}
+
+.manifesto em {
+  font-style: normal;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.note {
+  margin: 22px auto 0;
+  max-width: 46ch;
+  font-size: clamp(0.76rem, 3vw, 0.86rem);
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+
+.note a {
+  color: var(--ink-soft);
+  text-underline-offset: 2px;
+}
+
+.note strong {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+/* -------------------------------------------------------------- buttons */
+
+.button {
+  appearance: none;
+  border: 2px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: 0.86rem;
+  padding: 14px 30px;
+  min-height: 48px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition:
+    background 0.18s ease,
+    color 0.18s ease,
+    transform 0.12s ease;
+}
+
+.button:hover {
+  background: var(--ink);
+  color: var(--sand-light);
+}
+
+.button:active {
+  transform: scale(0.97);
+}
+
+.button--primary {
+  background: var(--ink);
+  color: var(--sand-light);
+  margin-top: 30px;
+}
+
+.button--primary:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.button--ghost {
+  border-color: transparent;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  padding: 10px 16px;
+  font-size: 0.76rem;
+  letter-spacing: 0.1em;
+}
+
+.button--ghost:hover {
+  background: transparent;
+  color: var(--accent);
+}
+
+/* ------------------------------------------------------------------ hud */
+
+/* Logical inset so the controls move to the left in right-to-left locales,
+   where the safe-area inset that matters is the other one too. */
+.hud-corner {
+  position: absolute;
+  top: calc(10px + var(--safe-top));
+  inset-inline-end: calc(10px + var(--safe-right));
+  display: flex;
+  gap: 8px;
+}
+
+[dir='rtl'] .hud-corner {
+  inset-inline-end: calc(10px + var(--safe-left));
+}
+
+.icon-button {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border: none;
+  border-radius: 50%;
+  background: rgba(243, 234, 214, 0.72);
+  color: var(--ink);
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  transition:
+    background 0.18s ease,
+    transform 0.12s ease;
+}
+
+.icon-button:hover {
+  background: rgba(243, 234, 214, 0.95);
+}
+
+.icon-button:active {
+  transform: scale(0.92);
+}
+
+.icon-button svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* --------------------------------------------------------------- panel */
+
+.panel {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: calc(20px + var(--safe-top)) calc(20px + var(--safe-right))
+    calc(20px + var(--safe-bottom)) calc(20px + var(--safe-left));
+  background: rgba(38, 32, 26, 0.55);
+  backdrop-filter: blur(3px);
+  animation: fade-in 0.2s ease both;
+}
+
+.panel__card {
+  width: min(430px, 100%);
+  max-height: 100%;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--panel);
+  border-radius: 18px;
+  padding: 26px 24px 20px;
+  box-shadow: 0 18px 50px rgba(40, 30, 18, 0.32);
+  text-align: center;
+}
+
+.panel__title {
+  margin: 0 0 6px;
+  font-size: 1.16rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.panel__body {
+  margin: 0 0 18px;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  text-align: start;
+}
+
+.panel__body p {
+  margin: 0 0 10px;
+}
+
+.panel__body strong {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+/* Work titles are italic, so the bold is reserved for who made them. */
+.panel__body em {
+  font-style: italic;
+}
+
+.panel__heading {
+  margin: 16px 0 8px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.panel__rules {
+  margin: 0 0 12px;
+  padding-inline-start: 1.1em;
+  list-style: none;
+}
+
+.panel__rules li {
+  position: relative;
+  margin-bottom: 8px;
+}
+
+.panel__rules li::before {
+  content: '';
+  position: absolute;
+  inset-inline-start: -1.1em;
+  top: 0.62em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.language {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* In the pause menu: a labelled row, set off from the tally above it. */
+.language--panel {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(91, 78, 64, 0.22);
+  justify-content: space-between;
+}
+
+/*
+ * On the title screen the picker sits directly under Begin, and the two share
+ * one width. Left to themselves they would each shrink to their own text, so
+ * "Begin" / "はじめる" / "English" / "简体中文" would make the pair a different
+ * shape in every language and jump around as you switch. A fixed column keeps
+ * them stacked and stable.
+ */
+.intro-actions {
+  display: grid;
+  gap: 12px;
+  width: min(260px, 100%);
+  margin: 30px auto 0;
+}
+
+.intro-actions .button--primary {
+  margin-top: 0;
+  width: 100%;
+}
+
+/* The label stays in the DOM for screen readers — its text is in the language
+   you are trying to leave, so showing it would help nobody. */
+.language--inline {
+  margin-top: 0;
+}
+
+.language--inline .language__control {
+  width: 100%;
+}
+
+.language--inline .language__select {
+  width: 100%;
+  min-height: 48px;
+  /* Symmetric padding so the centred label isn't pushed off by the chevron. */
+  padding-inline: 42px;
+  text-align: center;
+  text-align-last: center;
+}
+
+.language--inline .language__label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.language__label {
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+}
+
+/*
+ * Built from the same parts as .button — pill, 2px ink border, bold tracked
+ * type, invert on hover — so it reads as a control belonging to this page
+ * rather than the operating system's dropdown sitting on top of it.
+ *
+ * The language names are not uppercased: .button can do that because its
+ * labels are Latin words, but 简体中文 and 日本語 have no upper case and
+ * `text-transform` on a mixed list would only make English the odd one out.
+ */
+.language__control {
+  position: relative;
+  display: inline-flex;
+}
+
+.language__select {
+  appearance: none;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--ink);
+  background: transparent;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  padding-block: 10px;
+  /* Trailing space is for the chevron drawn by .language__control::after. */
+  padding-inline: 20px 42px;
+  min-height: 44px;
+  cursor: pointer;
+  transition:
+    background 0.18s ease,
+    color 0.18s ease;
+}
+
+.language__select:hover {
+  background: var(--ink);
+  color: var(--sand-light);
+}
+
+.language__select:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Chevron, drawn rather than imported. */
+.language__control::after {
+  content: '';
+  position: absolute;
+  inset-inline-end: 18px;
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  border-right: 2px solid var(--ink);
+  border-bottom: 2px solid var(--ink);
+  transform: translateY(-70%) rotate(45deg);
+  pointer-events: none;
+  transition: border-color 0.18s ease;
+}
+
+.language__control:hover::after {
+  border-color: var(--sand-light);
+}
+
+/* Options are drawn by the OS; at least keep them legible on dark themes. */
+.language__select option {
+  color: #2b2520;
+  background: #f3ead6;
+}
+
+.panel__credit {
+  margin: 4px 0 16px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(91, 78, 64, 0.22);
+  font-size: 0.74rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  text-align: start;
+}
+
+.panel__actions {
+  display: grid;
+  gap: 10px;
+}
+
+.tally {
+  margin: 16px 0 4px;
+  border-top: 1px solid rgba(91, 78, 64, 0.22);
+  padding-top: 14px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 6px 12px;
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+  text-align: start;
+}
+
+.tally dt {
+  margin: 0;
+}
+
+.tally dd {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+/* ---------------------------------------------------------------- hint */
+
+.hint {
+  position: absolute;
+  left: 50%;
+  bottom: calc(26px + var(--safe-bottom));
+  transform: translateX(-50%);
+  padding: 9px 18px;
+  border-radius: 999px;
+  background: rgba(243, 234, 214, 0.8);
+  color: var(--ink-soft);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  pointer-events: none !important;
+  animation: fade-in 0.5s ease both;
+}
+
+.hint.leaving {
+  animation: fade-out 0.6s ease both;
+}
+
+/* A dry white pop synced to the blast, cheaper than any post-process pass. */
+.flash {
+  position: absolute;
+  inset: 0;
+  background: #fff4d8;
+  opacity: 0;
+  pointer-events: none !important;
+}
+
+.flash.fire {
+  animation: blast 0.4s ease-out both;
+}
+
+@keyframes blast {
+  0% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* -------------------------------------------------- non-Latin scripts */
+
+/*
+ * Chinese, Japanese, Korean and Arabic have no italic tradition, and browsers
+ * fake one by shearing the glyphs, which looks broken rather than emphatic.
+ * Those locales mark titles with 《》,『』and «» in the copy instead, so the
+ * slant is switched off.
+ *
+ * The wide Latin letter-spacing is also dropped — it is set for uppercase
+ * Latin labels and only pushes CJK characters apart — and the heaviest weight
+ * is stepped back to 700, which CJK families actually ship rather than having
+ * the renderer synthesise it.
+ */
+:is(:lang(zh), :lang(ja), :lang(ko), :lang(ar), :lang(fa), :lang(he), :lang(ur)) em {
+  font-style: normal;
+}
+
+:is(:lang(zh), :lang(ja), :lang(ko), :lang(ar), :lang(fa), :lang(he), :lang(ur))
+  :is(.title, .button, .title__sub, .panel__heading) {
+  letter-spacing: 0.02em;
+}
+
+:is(:lang(zh), :lang(ja), :lang(ko), :lang(ar), :lang(fa), :lang(he), :lang(ur)) .title {
+  font-weight: 700;
+}
+
+:is(:lang(zh), :lang(ja), :lang(ko)) :is(.panel__body, .manifesto, .note) {
+  line-height: 1.75;
+}
+
+/* Arabic and Persian sit below the baseline more than Latin and need the room. */
+:is(:lang(ar), :lang(fa)) :is(.panel__body, .manifesto, .note, .tally) {
+  line-height: 1.9;
+}
+
+/* Nastaliq needs roughly double Latin, and its descenders overrun the box. */
+:lang(ur) :is(.panel__body, .manifesto, .note, .tally, .title, .button) {
+  line-height: 2.4;
+}
+
+:lang(ur) .button,
+:lang(ur) .language__select {
+  padding-block: 8px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .flash.fire {
+    animation: none;
+  }
+}
